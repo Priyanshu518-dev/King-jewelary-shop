@@ -32,8 +32,8 @@ export const getDailySalesData = async (startDate, endDate) => {
 			{
 				$match: {
 					createdAt: {
-						$gte: startDate,
-						$lte: endDate,
+						$gte: startDate,//greater than 
+						$lte: endDate,//less than
 					},
 				},
 			},
@@ -43,6 +43,18 @@ export const getDailySalesData = async (startDate, endDate) => {
 					sales: { $sum: 1 },
 					revenue: { $sum: "$totalAmount" },
 				},
+				//[
+//  {
+//    "_id":"2026-06-01",
+//    "sales":2,
+//    "revenue":300
+//  },
+//  {
+//    "_id":"2026-06-02",
+//    "sales":1,
+//    "revenue":150
+//  }
+// ]
 			},
 			{ $sort: { _id: 1 } },
 		]);

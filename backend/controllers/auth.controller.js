@@ -69,7 +69,7 @@ export const signup = async (req, res) => {
 		const { accessToken, refreshToken } = generateTokens(user._id);
 		await storeRefreshToken(user._id, refreshToken);
 		setCookies(res, accessToken, refreshToken);
-
+      
 		res.status(201).json({
 			message: "User created successfully",
 			user: {
@@ -98,12 +98,13 @@ export const login = async (req, res) => {
 		if (!user) {
 			return res.status(400).json({ message: "Invalid email or password" });
 		}
-
+      
 		const isMatch = await user.comparePassword(password);
 		if (!isMatch) {
+			
 			return res.status(400).json({ message: "Invalid email or password" });
 		}
-
+		
 		const { accessToken, refreshToken } = generateTokens(user._id);
 		await storeRefreshToken(user._id, refreshToken);
 		setCookies(res, accessToken, refreshToken);
